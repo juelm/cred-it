@@ -1,0 +1,18 @@
+{
+    "name": "cred-it",
+    "author": "3 Part Taharmony",
+    "version": "1.0",
+    "description": "Track everywhere a stored credit card is saved for auto-payment",
+    "permissions": [
+      "*://docs.microsoft.com/*",
+      "tabs"
+    ], 
+    "browser_action": {
+      "default_icon": {
+        "20": "images/color-changer20.png",
+        "40": "images/color-changer40.png"
+      },
+      "default_title": "Color Changer",
+      "default_popup": "popup.html"
+    }
+  }
