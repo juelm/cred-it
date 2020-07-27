@@ -1,18 +1,15 @@
 {
-    "name": "cred-it",
-    "author": "3 Part Taharmony",
-    "version": "1.0",
-    "description": "Track everywhere a stored credit card is saved for auto-payment",
-    "permissions": [
-      "*://docs.microsoft.com/*",
-      "tabs"
-    ], 
+    "name": "NASA Picture of the day viewer",
+    "version": "0.0.0.1",
+    "manifest_version": 2,
+    "description": "A chromium Extension to show the NASA Picture of the Day.",
+    "icons": {
+        "16": "icons/nasapod16x16.png",
+        "32": "icons/nasapod32x32.png",
+        "48": "icons/nasapod48x48.png",
+        "128": "icons/nasapod128x128.png"
+    },
     "browser_action": {
-      "default_icon": {
-        "20": "images/color-changer20.png",
-        "40": "images/color-changer40.png"
-      },
-      "default_title": "Color Changer",
-      "default_popup": "popup.html"
+        "default_popup": "popup/popup.html"
     }
-  }
+}
