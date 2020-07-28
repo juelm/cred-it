@@ -30,9 +30,8 @@
         <div class="existing-cards">
           <!-- Populate this with the stored data -->
           <label for="card-types">Select the card:</label><br>
-          <select name="existing-card" >
-            <option value="existing1">Card 1 ****2462</option>
-            <option value="existing2">Card 2 ****1298</option>
+          <select id="existing-cards-select" name="existing-card" >
+            
           </select>
         </div>
 
@@ -101,6 +100,25 @@
                         required
                         />
                     </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="cardNickname">NICKNAME (OPTIONAL)</label>
+                      <div class="input-group">
+                        <input 
+                        id="cardNickname"
+                        type="tel"
+                        class="form-control"
+                        name="cardNickname"
+                        placeholder="Card Nickname"
+                        autocomplete="cc-nickname"
+                        required autofocus 
+                        />
+                      </div>
+                    </div>                            
                   </div>
                 </div>
               </form>
