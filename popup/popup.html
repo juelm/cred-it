@@ -71,6 +71,28 @@
                     </div>                            
                   </div>
                 </div>
+
+                <br>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="cardNickname">CARD NICKNAME</label>
+                      <div class="input-group">
+                        <input 
+                        id="cardNickname"
+                        type="tel"
+                        class="form-control"
+                        name="cardNickname"
+                        placeholder="New nickname"
+                        />
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                      </div>
+                    </div>                            
+                  </div>
+                </div>
+
+                <br>
         
                 <div class="row">
                   <div class="col-xs-7 col-md-7">
@@ -88,6 +110,8 @@
                     </div>
                   </div>
         
+                <br>
+
                   <div class="col-xs-5 col-md-5 pull-right">
                     <div class="form-group">
                       <label for="cardCVC">CV CODE</label>
@@ -116,13 +140,17 @@
             </div>
           </div>
       </div> <!--End "left-hand-side" div-->
-      <div class="right-hand-side">
-        <h2>Card currently saved at:</h2>
-        <ul id="card-list">
 
-        </ul>
+      <!-- view cards-->
+      <div class="row">
+        <div class="col-xs-12">
+          <button id="viewCardBtn" class="btn btn-success btn-lg btn-block" type="submit">
+            <a href="view_cards.html" target="_blank">View cards</a>
+          </button>
+        </div>
+      </div>
 
-      </div><!--End "right-hand-side" div-->
+     
     </div><!--End "main-display" div-->
       <script src="../js/popup.js"></script>
   </body>

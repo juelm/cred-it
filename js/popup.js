@@ -45,6 +45,7 @@ displayNewCardsWhenSelected(source, "new-option", target2)
 );
 
 window.onload = function() {
+    // document.getElementById('sub-name').value = browser.tabs.getCurrent();
     let request = window.indexedDB.open('cred_it_db', 1);
     request.onerror = function() {
         console.log('Database failed to open');
