@@ -55,6 +55,7 @@ window.onload = function() {
     request.onsuccess = function() {
         console.log('Database opened successfully');
         db = request.result;
+        getExistingCards();
     };
 
     request.onupgradeneeded = function(e) {
@@ -115,19 +116,6 @@ function addItem() {
     window.location.reload();
 }
 
-function deleteItem(e) {
-    let cardId = Number(e.target.parentNode.getAttribute('card-id'));
-    let transaction = db.transaction(['cred_it_os'], 'readwrite');
-    let objectStore = transaction.objectStore('cred_it_os');
-    let request = objectStore.delete(cardId);
-  
-    transaction.oncomplete = function() {
-        e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-        console.log("Card with id " + cardId + " is successfully deleted");
-        window.location.reload();
-    };
-}
-
 function getCardType(number) {
     var re = {
         electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
@@ -152,3 +140,19 @@ function getCardType(number) {
     return "newtype";
 }
 
+async function getExistingCards() {
+    let objectStore = db.transaction('cred_it_os').objectStore('cred_it_os');
+    let select = document.getElementById('existing-cards-select');
+    objectStore.openCursor().onsuccess = function(e) {
+        let cursor = e.target.result;
+        
+        if(cursor) {
+            const optionItem = document.createElement('option');
+            optionItem.textContent = cursor.value.cardNickname + " ****" + cursor.value.cardNumber.substring(12);
+            select.appendChild(optionItem);
+            console.log(cursor.value);
+
+            cursor.continue();
+        }
+    }
+}
