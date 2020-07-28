@@ -53,6 +53,7 @@ window.onload = function() {
     request.onsuccess = function() {
         console.log('Database opened successfully');
         db = request.result;
+        printStoredSites();
     };
 
     request.onupgradeneeded = function(e) {
@@ -66,6 +67,7 @@ window.onload = function() {
       
         console.log('Database setup complete');
     };
+    
 };
 
 submitBtn.addEventListener("click", function(e) {
@@ -110,3 +112,27 @@ function deleteItem(itemId) {
       console.log('Item ' + itemId + ' deleted.');
     };
 }
+
+async function printStoredSites() {
+    let objectStore = db.transaction('cred_it_os').objectStore('cred_it_os');
+    let list = document.getElementById('card-list');
+    objectStore.openCursor().onsuccess = function(e) {
+        let cursor = e.target.result;
+        
+        if(cursor) {
+            const listItem = document.createElement('li');
+            const h3 = document.createElement('h3');
+            const p = document.createElement('p')
+            h3.textContent = cursor.value.subName;
+            p.textContent = cursor.value.cardNumber;
+            listItem.appendChild(h3);
+            listItem.appendChild(p);
+            list.appendChild(listItem);
+            console.log(cursor.value);
+
+            cursor.continue();
+        }
+    }
+}
+
+

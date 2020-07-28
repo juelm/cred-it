@@ -49,7 +49,7 @@ p {
 .credit-card-box .display-td {
     display: table-cell;
     vertical-align: middle;
-    width: 50%;
+    width: 50%; 
 }
 
 .existing-cards {
@@ -68,3 +68,25 @@ p {
     display: block;
   }
   
+.left-hand-side {
+    display:inline-block;
+    width:40%;
+    background-color: cadetblue;
+    min-height: 300px;
+    clear:both;
+}
+
+.right-hand-side {
+    display:inline-block;
+    width: 40%;
+    background-color: brown;
+    min-height: 300px;
+    clear:both;
+}
+.main-display {
+    width:100%;
+}
+body{
+    width:500px;
+    min-height: 300px
+}
