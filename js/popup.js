@@ -90,7 +90,7 @@ function addItem() {
         return;
     }
 
-    let nicknameValue = (cardNicknameInput.value === "") ? getCardType(cardNumberInput.value) + " " + cardNumberInput.value.substring(12) : cardNicknameInput.value;
+    let nicknameValue = (cardNicknameInput.value === "") ? getCardType(cardNumberInput.value).toUpperCase() + " " + cardNumberInput.value.substring(12) : cardNicknameInput.value;
 
     let newItem = { cardNickname: nicknameValue, subName: subNameInput.value, cardNumber: cardNumberInput.value, cardExpiry: cardExpiryInput.value, cardCVC: cardCVCInput.value };
     let transaction = db.transaction(['cred_it_os'], 'readwrite');
@@ -164,7 +164,7 @@ async function printStoredSites() {
             const p = document.createElement('p')
             h3.textContent = cursor.value.subName;
             p.textContent = cursor.value.cardNumber;
-            optionItem.textContent = cursor.value.cardNickname + " " + cursor.value.cardNumber.substring(12);
+            optionItem.textContent = cursor.value.cardNickname + " ****" + cursor.value.cardNumber.substring(12);
             listItem.appendChild(h3);
             listItem.appendChild(p);
             list.appendChild(listItem);
