@@ -21,7 +21,7 @@ const target2 = document.querySelector(".new-cards")
 const displayExistingCardsWhenSelected = (source, value, target1) => {
     const selectedIndex = source.selectedIndex;
     const isSelected = source[selectedIndex].value === value;
-    currTarget = (isSelected) ? "target1" : currTarget;
+    currTarget = (isSelected) ? "existingCard" : currTarget;
     target1.classList[isSelected
         ? "add"
         : "remove"
@@ -30,7 +30,7 @@ const displayExistingCardsWhenSelected = (source, value, target1) => {
 const displayNewCardsWhenSelected = (source, value, target2) => {
     const selectedIndex = source.selectedIndex;
     const isSelected = source[selectedIndex].value === value;
-    currTarget = (isSelected) ? "target2" : currTarget;
+    currTarget = (isSelected) ? "newCard" : currTarget;
     target2.classList[isSelected
         ? "add"
         : "remove"
@@ -68,9 +68,11 @@ window.onload = function() {
     };
 };
 
-submitBtn.addEventListener("click", () =>
-    addItem()
-);
+submitBtn.addEventListener("click", function(e) {
+    if (currTarget === "newCard") {
+        addItem()
+    }
+});
 
 function addItem() {
     if (subNameInput.value === "" || cardNumberInput.value === "" || cardExpiryInput.value === "" || cardCVCInput.value === "") {
