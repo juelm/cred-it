@@ -8,6 +8,7 @@ let subNameInput = document.getElementById("sub-name");
 let cardNumberInput = document.getElementById("cardNumber");
 let cardExpiryInput = document.getElementById("cardExpiry");
 let cardCVCInput = document.getElementById("cardCVC");
+let cardNicknameInput = document.getElementById("cardNickname");
 let db;
 
 var currTarget = "---";
@@ -40,6 +41,7 @@ const displayNewCardsWhenSelected = (source, value, target2) => {
 source.addEventListener("change", (evt) =>
 displayExistingCardsWhenSelected(source, "existing", target1)
 );
+
 source.addEventListener("change", (evt) =>
 displayNewCardsWhenSelected(source, "new-option", target2)
 );
@@ -61,6 +63,7 @@ window.onload = function() {
         let db = e.target.result;
         let objectStore = db.createObjectStore('cred_it_os', { keyPath: 'id', autoIncrement:true });
       
+        objectStore.createIndex('cardNickname', 'cardNickname', { unique: true });
         objectStore.createIndex('subName', 'subName', { unique: false });
         objectStore.createIndex('cardNumber', 'cardNumber', { unique: false });
         objectStore.createIndex('cardExpiry', 'cardExpiry', { unique: false });
@@ -83,7 +86,14 @@ function addItem() {
         return;
     }
 
-    let newItem = { subName: subNameInput.value, cardNumber: cardNumberInput.value, cardExpiry: cardExpiryInput.value, cardCVC: cardCVCInput.value };
+    if (cardNumberInput.value.length != 16 || cardNumberInput.value.match(/^[0-9]+$/) == null) {
+        console.log("Invalid card number");
+        return;
+    }
+
+    let nicknameValue = (cardNicknameInput.value === "") ? getCardType(cardNumberInput.value) + " " + cardNumberInput.value.substring(12) : cardNicknameInput.value;
+
+    let newItem = { cardNickname: nicknameValue, subName: subNameInput.value, cardNumber: cardNumberInput.value, cardExpiry: cardExpiryInput.value, cardCVC: cardCVCInput.value };
     let transaction = db.transaction(['cred_it_os'], 'readwrite');
     let objectStore = transaction.objectStore('cred_it_os');
   
@@ -93,6 +103,7 @@ function addItem() {
         cardNumberInput.value = "";
         cardExpiryInput.value = "";
         cardCVCInput.value = "";
+        cardNicknameInput.value = "";
     };
   
     transaction.oncomplete = function() {
@@ -102,6 +113,8 @@ function addItem() {
     transaction.onerror = function() {
       console.log('Transaction not opened due to error');
     };
+
+    window.location.reload();
 }
 
 function deleteItem(itemId) {
@@ -114,26 +127,52 @@ function deleteItem(itemId) {
     };
 }
 
+function getCardType(number) {
+    var re = {
+        electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
+        maestro: /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
+        dankort: /^(5019)\d+$/,
+        interpayment: /^(636)\d+$/,
+        unionpay: /^(62|88)\d+$/,
+        visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+        mastercard: /^5[1-5][0-9]{14}$/,
+        amex: /^3[47][0-9]{13}$/,
+        diners: /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/,
+        discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+        jcb: /^(?:2131|1800|35\d{3})\d{11}$/
+    };
+
+    for(var key in re) {
+        if(number.match(re[key]) != null) {
+            return key;
+        }
+    }
+
+    return "newtype";
+}
+
 async function printStoredSites() {
     let objectStore = db.transaction('cred_it_os').objectStore('cred_it_os');
     let list = document.getElementById('card-list');
+    let select = document.getElementById('existing-cards-select');
     objectStore.openCursor().onsuccess = function(e) {
         let cursor = e.target.result;
         
         if(cursor) {
+            const optionItem = document.createElement('option');
             const listItem = document.createElement('li');
             const h3 = document.createElement('h3');
             const p = document.createElement('p')
             h3.textContent = cursor.value.subName;
             p.textContent = cursor.value.cardNumber;
+            optionItem.textContent = cursor.value.cardNickname + " " + cursor.value.cardNumber.substring(12);
             listItem.appendChild(h3);
             listItem.appendChild(p);
             list.appendChild(listItem);
+            select.appendChild(optionItem);
             console.log(cursor.value);
 
             cursor.continue();
         }
     }
 }
-
-
