@@ -19,17 +19,21 @@ async function printStoredSites() {
     let select = document.getElementById('existing-cards-select');
     objectStore.openCursor().onsuccess = function(e) {
         let cursor = e.target.result;
-        
+    
         if(cursor) {
             const optionItem = document.createElement('option');
             const listItem = document.createElement('li');
-            const h3 = document.createElement('h3');
-            const p = document.createElement('p')
-            h3.textContent = cursor.value.subName;
-            p.textContent = cursor.value.cardNumber;
+            const subName = document.createElement('h3');
+            const cardNumber = document.createElement('p')
+            const cardNickname = document.createElement('p')
+            subName.textContent = cursor.value.subName;
+            cardNumber.textContent = cursor.value.cardNumber;
+            cardNickname.textContent = cursor.value.cardNickname;
+            
             optionItem.textContent = cursor.value.cardNickname + " " + cursor.value.cardNumber.substring(12);
-            listItem.appendChild(h3);
-            listItem.appendChild(p);
+            listItem.appendChild(subName);
+            listItem.appendChild(cardNumber);
+            listItem.appendChild(cardNickname);
             list.appendChild(listItem);
             select.appendChild(optionItem);
             console.log(cursor.value);
@@ -38,3 +42,4 @@ async function printStoredSites() {
         }
     }
 }
+
