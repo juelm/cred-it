@@ -1,5 +1,5 @@
 {
-    "name": "NASA Picture of the day viewer",
+    "name": "Cred-it",
     "version": "0.0.0.1",
     "manifest_version": 2,
     "description": "A chromium Extension to show the NASA Picture of the Day.",
