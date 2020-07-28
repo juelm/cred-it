@@ -5,116 +5,125 @@
     <title>Cred-it</title>
   </head>
   <body>
-    <div class="payment-method-home">
-      <h2>Add a subscription payment channel</h2>
-    </div>
-    <br>
-    <div class="sub-name">
-      <label for="sub">Subscription Name:</label><br>
-      <input type="text" id="sub-name" name="sub-name"><br>
-    </div>
-    <br>
-    <div class="connected hidden">
-      <label for="card-types">Select the card type:</label><br>
-      <select name="card-type" id="card-type">
-        <option value="default">---</option>
-        <option value="new-option">Use a new card</option>
-        <option value="existing">Use an existing card</option>
-      </select>
-    </div>
-
-    <br>
-
-    <div class="existing-cards">
-      <!-- Populate this with the stored data -->
-      <label for="card-types">Select the card:</label><br>
-      <select name="existing-card" >
-        <option value="existing1">Card 1 ****2462</option>
-        <option value="existing2">Card 2 ****1298</option>
-      </select>
-    </div>
-
-        <!-- CREDIT CARD FORM STARTS HERE -->
-    <div class="new-cards">
-      <!-- Populate this with the stored data -->
-      <div class="panel panel-default credit-card-box" id ="new-card">
-        <div class="panel-heading display-table" >
-          <div class="row display-tr" >
-            <h3 class="panel-title display-td" >Card Details</h3>
-            <div class="display-td" >                            
-              <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
-            </div>
-          </div>                    
+    <div class="main-display">
+      <div class="left-hand-side">
+        <div class="payment-method-home">
+          <h2>Add a subscription payment channel</h2>
         </div>
-      
-        <div class="panel-body">
-          <form role="form" id="payment-form">
+        <br>
+        <div class="sub-name">
+          <label for="sub">Subscription Name:</label><br>
+          <input type="text" id="sub-name" name="sub-name"><br>
+        </div>
+        <br>
+        <div class="connected hidden">
+          <label for="card-types">Select the card type:</label><br>
+          <select name="card-type" id="card-type">
+            <option value="default">---</option>
+            <option value="new-option">Use a new card</option>
+            <option value="existing">Use an existing card</option>
+          </select>
+        </div>
+
+        <br>
+
+        <div class="existing-cards">
+          <!-- Populate this with the stored data -->
+          <label for="card-types">Select the card:</label><br>
+          <select name="existing-card" >
+            <option value="existing1">Card 1 ****2462</option>
+            <option value="existing2">Card 2 ****1298</option>
+          </select>
+        </div>
+
+            <!-- CREDIT CARD FORM STARTS HERE -->
+        <div class="new-cards">
+          <!-- Populate this with the stored data -->
+          <div class="panel panel-default credit-card-box" id ="new-card">
+            <div class="panel-heading display-table" >
+              <div class="row display-tr" >
+                <h3 class="panel-title display-td" >Card Details</h3>
+                <div class="display-td" >                            
+                  <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                </div>
+              </div>                    
+            </div>
           
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="form-group">
-                  <label for="cardNumber">CARD NUMBER</label>
-                  <div class="input-group">
-                    <input 
-                    id="cardNumber"
-                    type="tel"
-                    class="form-control"
-                    name="cardNumber"
-                    placeholder="Valid Card Number"
-                    autocomplete="cc-number"
-                    required autofocus 
-                    />
-                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+            <div class="panel-body">
+              <form role="form" id="payment-form">
+              
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="cardNumber">CARD NUMBER</label>
+                      <div class="input-group">
+                        <input 
+                        id="cardNumber"
+                        type="tel"
+                        class="form-control"
+                        name="cardNumber"
+                        placeholder="Valid Card Number"
+                        autocomplete="cc-number"
+                        required autofocus 
+                        />
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                      </div>
+                    </div>                            
                   </div>
-                </div>                            
-              </div>
-            </div>
-    
-            <div class="row">
-              <div class="col-xs-7 col-md-7">
-                <div class="form-group">
-                  <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
-                  <input 
-                  id="cardExpiry"
-                  type="tel" 
-                  class="form-control" 
-                  name="cardExpiry"
-                  placeholder="MM / YY"
-                  autocomplete="cc-exp"
-                  required 
-                  />
                 </div>
-              </div>
-    
-              <div class="col-xs-5 col-md-5 pull-right">
-                <div class="form-group">
-                  <label for="cardCVC">CV CODE</label>
-                    <input 
-                    id="cardCVC"
-                    type="tel" 
-                    class="form-control"
-                    name="cardCVC"
-                    placeholder="CVC"
-                    autocomplete="cc-csc"
-                    required
-                    />
+        
+                <div class="row">
+                  <div class="col-xs-7 col-md-7">
+                    <div class="form-group">
+                      <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                      <input 
+                      id="cardExpiry"
+                      type="tel" 
+                      class="form-control" 
+                      name="cardExpiry"
+                      placeholder="MM / YY"
+                      autocomplete="cc-exp"
+                      required 
+                      />
+                    </div>
+                  </div>
+        
+                  <div class="col-xs-5 col-md-5 pull-right">
+                    <div class="form-group">
+                      <label for="cardCVC">CV CODE</label>
+                        <input 
+                        id="cardCVC"
+                        type="tel" 
+                        class="form-control"
+                        name="cardCVC"
+                        placeholder="CVC"
+                        autocomplete="cc-csc"
+                        required
+                        />
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
-          </form>
+          </div>            
         </div>
-      </div>            
-    </div>
-      <!-- CREDIT CARD FORM ENDS HERE -->
+          <!-- CREDIT CARD FORM ENDS HERE -->
 
-      <br><br>
-      <div class="row">
-        <div class="col-xs-12">
-          <button id="submitBtn" class="btn btn-success btn-lg btn-block" type="submit">Submit</button>
-        </div>
-      </div>
+          <br><br>
+          <div class="row">
+            <div class="col-xs-12">
+              <button id="submitBtn" class="btn btn-success btn-lg btn-block" type="submit">Submit</button>
+            </div>
+          </div>
+      </div> <!--End "left-hand-side" div-->
+      <div class="right-hand-side">
+        <h2>Card currently saved at:</h2>
+        <ul id="card-list">
 
-    
+        </ul>
+
+      </div><!--End "right-hand-side" div-->
+    </div><!--End "main-display" div-->
       <script src="../js/popup.js"></script>
   </body>
 </html>
