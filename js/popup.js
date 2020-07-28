@@ -116,13 +116,16 @@ function addItem() {
     window.location.reload();
 }
 
-function deleteItem(itemId) {
+function deleteItem(e) {
+    let cardId = Number(e.target.parentNode.getAttribute('card-id'));
     let transaction = db.transaction(['cred_it_os'], 'readwrite');
     let objectStore = transaction.objectStore('cred_it_os');
-    let request = objectStore.delete(itemId);
+    let request = objectStore.delete(cardId);
   
     transaction.oncomplete = function() {
-      console.log('Item ' + itemId + ' deleted.');
+        e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+        console.log("Card with id " + cardId + " is successfully deleted");
+        window.location.reload();
     };
 }
 
@@ -161,14 +164,22 @@ async function printStoredSites() {
             const optionItem = document.createElement('option');
             const listItem = document.createElement('li');
             const h3 = document.createElement('h3');
-            const p = document.createElement('p')
+            const p = document.createElement('p');
+            const deleteBtn = document.createElement('button');
+
             h3.textContent = cursor.value.subName;
             p.textContent = cursor.value.cardNumber;
             optionItem.textContent = cursor.value.cardNickname + " ****" + cursor.value.cardNumber.substring(12);
+            deleteBtn.textContent = 'Delete';
+
+            listItem.setAttribute('card-id', cursor.value.id);
             listItem.appendChild(h3);
             listItem.appendChild(p);
+            listItem.appendChild(deleteBtn);
             list.appendChild(listItem);
             select.appendChild(optionItem);
+
+            deleteBtn.onclick = deleteItem;
             console.log(cursor.value);
 
             cursor.continue();
