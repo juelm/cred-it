@@ -89,7 +89,7 @@ function addItem() {
         return;
     }
 
-    let nicknameValue = (cardNicknameInput.value === "") ? getCardType(cardNumberInput.value) + " " + cardNumberInput.value.substring(12) : cardNicknameInput.value;
+    let nicknameValue = (cardNicknameInput.value === "") ? getCardType(cardNumberInput.value).toUpperCase() + " " + cardNumberInput.value.substring(12) : cardNicknameInput.value;
 
     let newItem = { cardNickname: nicknameValue, subName: subNameInput.value, cardNumber: cardNumberInput.value, cardExpiry: cardExpiryInput.value, cardCVC: cardCVCInput.value };
     let transaction = db.transaction(['cred_it_os'], 'readwrite');
@@ -115,13 +115,16 @@ function addItem() {
     window.location.reload();
 }
 
-function deleteItem(itemId) {
+function deleteItem(e) {
+    let cardId = Number(e.target.parentNode.getAttribute('card-id'));
     let transaction = db.transaction(['cred_it_os'], 'readwrite');
     let objectStore = transaction.objectStore('cred_it_os');
-    let request = objectStore.delete(itemId);
+    let request = objectStore.delete(cardId);
   
     transaction.oncomplete = function() {
-      console.log('Item ' + itemId + ' deleted.');
+        e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+        console.log("Card with id " + cardId + " is successfully deleted");
+        window.location.reload();
     };
 }
 
