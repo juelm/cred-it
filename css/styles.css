@@ -71,22 +71,31 @@ p {
 .left-hand-side {
     display:inline-block;
     width:40%;
-    background-color: cadetblue;
     min-height: 300px;
-    clear:both;
+    margin-top: 20px;
+    margin-left: 2%;
+    margin-bottom: 20px;
+    border: 2px solid;
+    border-radius: 25px;
+    border-color: gray;
+    padding: 2% 2% 2% 2%;
 }
 
 .right-hand-side {
     display:inline-block;
     width: 40%;
-    background-color: brown;
     min-height: 300px;
-    clear:both;
+    margin-top: 20px;
+    margin-left: 5%;
+    vertical-align: top;
+    border: 2px solid;
+    border-radius: 25px;
+    border-color: gray;
+    padding: 2% 2% 2% 2%;
 }
 .main-display {
     width:100%;
 }
 body{
     width:500px;
-    min-height: 300px
 }
