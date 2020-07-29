@@ -63,7 +63,7 @@ window.onload = function() {
         let objectStore = db.createObjectStore('cred_it_os', { keyPath: 'id', autoIncrement:true });
       
         objectStore.createIndex('cardNickname', 'cardNickname', { unique: true });
-        objectStore.createIndex('subName', 'subName', { unique: false });
+        objectStore.createIndex('subs', 'subs', { unique: false });
         objectStore.createIndex('cardNumber', 'cardNumber', { unique: false });
         objectStore.createIndex('cardExpiry', 'cardExpiry', { unique: false });
         objectStore.createIndex('cardCVC', 'cardCVC', { unique: false });
@@ -91,8 +91,9 @@ function addItem() {
     }
 
     let nicknameValue = (cardNicknameInput.value === "") ? getCardType(cardNumberInput.value).toUpperCase() + " " + cardNumberInput.value.substring(12) : cardNicknameInput.value;
+    let subs = [subNameInput.value];
 
-    let newItem = { cardNickname: nicknameValue, subName: subNameInput.value, cardNumber: cardNumberInput.value, cardExpiry: cardExpiryInput.value, cardCVC: cardCVCInput.value };
+    let newItem = { cardNickname: nicknameValue, subs: subs, cardNumber: cardNumberInput.value, cardExpiry: cardExpiryInput.value, cardCVC: cardCVCInput.value };
     let transaction = db.transaction(['cred_it_os'], 'readwrite');
     let objectStore = transaction.objectStore('cred_it_os');
   

@@ -22,13 +22,14 @@ window.onload = function() {
 
 async function getCurrentCardData() {
     let cardId = Number(localStorage.getItem('updateCardId'));
+    let subId = Number(localStorage.getItem('updateSubId'));
     let transaction = db.transaction(['cred_it_os'], 'readwrite');
     let objectStore = transaction.objectStore('cred_it_os');
   
     let request = objectStore.get(cardId);
     request.onsuccess = function(e) {
         console.log(request);
-        subNameInput.value = request.result.subName;
+        subNameInput.value = request.result.subs[subId];
         cardNumberInput.value = request.result.cardNumber;
         cardExpiryInput.value = request.result.cardExpiry;
         cardCVCInput.value = request.result.cardCVC;
@@ -37,7 +38,7 @@ async function getCurrentCardData() {
 }
 
 submitBtn.addEventListener("click", function(e) {
-    deleteAndAddItem();
+    updateItem();
 });
 
 function getCardType(number) {
@@ -64,7 +65,7 @@ function getCardType(number) {
     return "newtype";
 }
 
-function deleteAndAddItem() {
+function updateItem() {
     if (subNameInput.value === "" || cardNumberInput.value === "" || cardExpiryInput.value === "" || cardCVCInput.value === "") {
         console.log("Values cannot be empty");
         return;
@@ -75,33 +76,29 @@ function deleteAndAddItem() {
         return;
     }
     let cardId = Number(localStorage.getItem('updateCardId'));
+    let subId = Number(localStorage.getItem('updateSubId'));
     let transaction = db.transaction(['cred_it_os'], 'readwrite');
     let objectStore = transaction.objectStore('cred_it_os');
-    let request = objectStore.delete(cardId);
-  
-    transaction.oncomplete = function() {
-        console.log("Card with id " + cardId + " is successfully deleted");
-        addItem();
-    };
-}
+    let request = objectStore.get(cardId);
 
-function addItem() {
-    let nicknameValue = (cardNicknameInput.value === "") ? getCardType(cardNumberInput.value).toUpperCase() + " " + cardNumberInput.value.substring(12) : cardNicknameInput.value;
-    
-    let newItem = { cardNickname: nicknameValue, subName: subNameInput.value, cardNumber: cardNumberInput.value, cardExpiry: cardExpiryInput.value, cardCVC: cardCVCInput.value };
-    let transaction = db.transaction(['cred_it_os'], 'readwrite');
-    let objectStore = transaction.objectStore('cred_it_os');
-  
-    let request = objectStore.add(newItem);
-    request.onsuccess = function(e) {
-        localStorage.setItem('updateCardId', request.result);
+    request.onsuccess = function() {
+        console.log(request.result);
+        let nicknameValue = (cardNicknameInput.value === "") ? getCardType(cardNumberInput.value).toUpperCase() + " " + cardNumberInput.value.substring(12) : cardNicknameInput.value;
+        
+        request.result.cardNickname = nicknameValue;
+        request.result.subs[subId] = subNameInput.value;
+        request.result.cardNumber = cardNumberInput.value;
+        request.result.cardExpiry = cardExpiryInput.value;
+        request.result.cardCVC = cardCVCInput.value;
+
+        objectStore.put(request.result);
     }
-
+  
     transaction.oncomplete = function() {
         console.log('Transaction completed: Successfully updated item in database.');
         window.history.back();
     };
-    
+
     transaction.onerror = function() {
         console.log('Transaction not opened due to error');
     };
