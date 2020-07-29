@@ -20,34 +20,37 @@ async function printStoredSites() {
         let cursor = e.target.result;
     
         if(cursor) {
+            const cardNumberAndNickName = document.createElement('h3');
+            cardNumberAndNickName.textContent = "Card number: " + cursor.value.cardNumber + "("+cursor.value.cardNickname + ")";
+            const listItem = document.createElement('li');
+
+            listItem.appendChild(cardNumberAndNickName);
+            const innerListItem = document.createElement('ol');
+            
             for (var i = 0; i < cursor.value.subs.length; i++){
-                const subName = cursor.value.subs[i];
-                const listItem = document.createElement('li');
-                const h3 = document.createElement('h3');
-                const p = document.createElement('p');
-                const cardNickname = document.createElement('p');
+                const s = cursor.value.subs[i];
+                const subName = document.createElement('p');
+                
                 const updateBtn = document.createElement('button');
                 const deleteBtn = document.createElement('button');
+                updateBtn.textContent = 'Update';
+                deleteBtn.textContent = 'Delete';
 
                 listItem.setAttribute('card-id', cursor.value.id);
                 listItem.setAttribute('sub-id', i);
 
-                h3.textContent = subName;
-                p.textContent = cursor.value.cardNumber;
-                cardNickname.textContent = cursor.value.cardNickname;
-                updateBtn.textContent = 'Update';
-                deleteBtn.textContent = 'Delete';
-
+                subName.textContent = "Subscription name: " + s;
+                
+                innerListItem.appendChild(subName);
+                innerListItem.appendChild(updateBtn);
+                innerListItem.appendChild(deleteBtn);
+                
                 updateBtn.onclick = redirectToUpdatePage;
-                deleteBtn.onclick = deleteItem;
-
-                listItem.appendChild(h3);
-                listItem.appendChild(p);
-                listItem.appendChild(cardNickname);
-                listItem.appendChild(updateBtn);
-                listItem.appendChild(deleteBtn);
-                list.appendChild(listItem);
+                deleteBtn.onclick = deleteItem;               
             }
+            
+            listItem.appendChild(innerListItem);
+            list.appendChild(listItem);
             console.log(cursor.value);
 
             cursor.continue();
