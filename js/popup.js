@@ -3,6 +3,7 @@ let aliceblue = document.getElementById('aliceblue');
 let cornsilk = document.getElementById('cornsilk');
 let reset = document.getElementById('reset');
 
+let select = document.getElementById('existing-cards-select');
 let submitBtn = document.getElementById("submitBtn");
 let subNameInput = document.getElementById("sub-name");
 let cardNumberInput = document.getElementById("cardNumber");
@@ -75,9 +76,38 @@ window.onload = function() {
 
 submitBtn.addEventListener("click", function(e) {
     if (currTarget === "newCard") {
-        addItem()
+        addItem();
+    } else if (currTarget === "existingCard") {
+        addSubscription();
     }
 });
+
+function addSubscription() {
+    if (subNameInput.value === "") {
+        console.log("Subscription cannot be empty");
+        return;
+    }
+
+    let cardId = Number(select.options[select.selectedIndex].getAttribute('card-id'));
+    let transaction = db.transaction(['cred_it_os'], 'readwrite');
+    let objectStore = transaction.objectStore('cred_it_os');
+    let request = objectStore.get(cardId);
+
+    request.onsuccess = function() {
+        if (request.result.subs.indexOf(subNameInput.value) >= 0) {
+            console.log("Subscription " + subNameInput.value + " already exists for card");
+            return;
+        }
+
+        request.result.subs.push(subNameInput.value);
+        objectStore.put(request.result);
+    }
+  
+    transaction.oncomplete = function() {
+        console.log("Transaction in addSubscription complete");
+        window.location.reload();
+    };
+}
 
 function addItem() {
     if (subNameInput.value === "" || cardNumberInput.value === "" || cardExpiryInput.value === "" || cardCVCInput.value === "") {
@@ -143,13 +173,13 @@ function getCardType(number) {
 
 async function getExistingCards() {
     let objectStore = db.transaction('cred_it_os').objectStore('cred_it_os');
-    let select = document.getElementById('existing-cards-select');
     objectStore.openCursor().onsuccess = function(e) {
         let cursor = e.target.result;
         
         if(cursor) {
             const optionItem = document.createElement('option');
             optionItem.textContent = cursor.value.cardNickname + " ****" + cursor.value.cardNumber.substring(12);
+            optionItem.setAttribute('card-id', cursor.value.id);
             select.appendChild(optionItem);
             console.log(cursor.value);
 
