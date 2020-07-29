@@ -59,16 +59,16 @@ async function printStoredSites() {
 }
 
 function redirectToUpdatePage(e) {
-    let cardId = Number(e.target.parentNode.getAttribute('card-id'));
-    let subId = Number(e.target.parentNode.getAttribute('sub-id'));
+    let cardId = Number(e.target.parentNode.parentNode.getAttribute('card-id'));
+    let subId = Number(e.target.parentNode.parentNode.getAttribute('sub-id'));
     localStorage.setItem('updateCardId', cardId);
     localStorage.setItem('updateSubId', subId);
     location.href = '../popup/update_card.html';
 }
 
 function deleteItem(e) {
-    let cardId = Number(e.target.parentNode.getAttribute('card-id'));
-    let subId = Number(e.target.parentNode.getAttribute('sub-id'));
+    let cardId = Number(e.target.parentNode.parentNode.getAttribute('card-id'));
+    let subId = Number(e.target.parentNode.parentNode.getAttribute('sub-id'));
     let transaction = db.transaction(['cred_it_os'], 'readwrite');
     let objectStore = transaction.objectStore('cred_it_os');
     let request = objectStore.get(cardId);
