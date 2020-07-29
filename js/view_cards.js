@@ -23,7 +23,8 @@ async function printStoredSites() {
             const listItem = document.createElement('li');
             const h3 = document.createElement('h3');
             const p = document.createElement('p');
-            const cardNickname = document.createElement('p')
+            const cardNickname = document.createElement('p');
+            const updateBtn = document.createElement('button');
             const deleteBtn = document.createElement('button');
 
             listItem.setAttribute('card-id', cursor.value.id);
@@ -31,13 +32,16 @@ async function printStoredSites() {
             h3.textContent = cursor.value.subName;
             p.textContent = cursor.value.cardNumber;
             cardNickname.textContent = cursor.value.cardNickname;
+            updateBtn.textContent = 'Update';
             deleteBtn.textContent = 'Delete';
 
+            updateBtn.onclick = redirectToUpdatePage;
             deleteBtn.onclick = deleteItem;
 
             listItem.appendChild(h3);
             listItem.appendChild(p);
             listItem.appendChild(cardNickname);
+            listItem.appendChild(updateBtn);
             listItem.appendChild(deleteBtn);
             list.appendChild(listItem);
             console.log(cursor.value);
@@ -45,6 +49,12 @@ async function printStoredSites() {
             cursor.continue();
         }
     }
+}
+
+function redirectToUpdatePage(e) {
+    let cardId = Number(e.target.parentNode.getAttribute('card-id'));
+    localStorage.setItem('updateCardId', cardId);
+    location.href = '../popup/update_card.html';
 }
 
 function deleteItem(e) {

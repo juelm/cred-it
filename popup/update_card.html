@@ -1,0 +1,94 @@
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/styles.css">
+    <meta charset="UTF-8" />
+    <title>Cred-it</title>
+  </head>
+  <body>
+    <div class="main-display">
+      <div class="left-hand-side">
+        <div class="payment-method-home">
+          <h2>Update Card Information</h2>
+        </div>
+        <br>
+        <div class="sub-name">
+          <label for="sub">Subscription Name:</label><br>
+          <input type="text" id="sub-name" name="sub-name"><br>
+        </div>
+        <br>
+        <div class="row display-tr" >
+          <h3 class="panel-title display-td" >Card Details</h3>
+          <div class="display-td" >                            
+              <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+          </div>
+        </div>  
+        <br>
+        <div class="form-group">
+          <label for="cardNumber">CARD NUMBER</label>
+          <div class="input-group">
+            <input 
+            id="cardNumber"
+            type="tel"
+            class="form-control"
+            name="cardNumber"
+            placeholder="Valid Card Number"
+            autocomplete="cc-number"
+            required autofocus 
+            />
+            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+          <input 
+          id="cardExpiry"
+          type="tel" 
+          class="form-control" 
+          name="cardExpiry"
+          placeholder="MM / YY"
+          autocomplete="cc-exp"
+          required 
+          />
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="cardCVC">CV CODE</label>
+          <input 
+          id="cardCVC"
+          type="tel" 
+          class="form-control"
+          name="cardCVC"
+          placeholder="CVC"
+          autocomplete="cc-csc"
+          required
+          />
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="cardNickname">NICKNAME (OPTIONAL)</label>
+          <div class="input-group">
+            <input 
+            id="cardNickname"
+            type="tel"
+            class="form-control"
+            name="cardNickname"
+            placeholder="Card Nickname"
+            autocomplete="cc-nickname"
+            required autofocus 
+            />
+          </div>
+        </div>
+
+          <br><br>
+          <div class="row">
+            <div class="col-xs-12">
+              <button id="submitBtn" class="btn btn-success btn-lg btn-block" type="submit">Submit</button>
+            </div>
+          </div>
+      </div> <!--End "left-hand-side" div-->
+     
+    </div><!--End "main-display" div-->
+      <script src="../js/update_card.js"></script>
+  </body>
+</html>
