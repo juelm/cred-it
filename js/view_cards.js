@@ -21,7 +21,7 @@ async function printStoredSites() {
     
         if(cursor) {
             const cardNumberAndNickName = document.createElement('h3');
-            cardNumberAndNickName.textContent = "Card number: " + cursor.value.cardNumber + "("+cursor.value.cardNickname + ")";
+            cardNumberAndNickName.textContent = "Card number: XXXX-XXXX-XXXX-" + cursor.value.cardNumber.substring(12) + "("+cursor.value.cardNickname + ")";
             const listItem = document.createElement('li');
 
             listItem.appendChild(cardNumberAndNickName);
